@@ -7,19 +7,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerService {
+public class VehicleService {
 
     public void addCustomer(Customer customer) throws SQLException {
 
-       Connection conn = DBConfig.getConnection();
-       PreparedStatement ps =
-               conn.prepareStatement("INSERT INTO customers (name, phone) VALUES (?, ?)");
+        Connection conn = DBConfig.getConnection();
+        PreparedStatement ps =
+                conn.prepareStatement("INSERT INTO customers (name, phone) VALUES (?, ?)");
 
-       ps.setString(1, customer.getName());
-       ps.setString(2, customer.getPhone());
-       ps.executeUpdate();
-       ps.close();
-       conn.close();
+        ps.setString(1, customer.getName());
+        ps.setString(2, customer.getPhone());
+        ps.executeUpdate();
+        ps.close();
+        conn.close();
 
     }
 
@@ -47,7 +47,7 @@ public class CustomerService {
         ResultSet rs = st.executeQuery("SELECT * FROM customers where phone = ?");
 
         while (rs.next()) {
-           customer = new Customer(rs.getInt("id"),
+            customer = new Customer(rs.getInt("id"),
                     rs.getString("name"), rs.getString("phone"));
         }
         return customer;
