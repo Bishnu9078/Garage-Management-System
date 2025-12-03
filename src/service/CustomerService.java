@@ -23,7 +23,7 @@ public class CustomerService {
 
     }
 
-    public ArrayList<Customer> getAllCustomers() throws SQLException
+    public List<Customer> getAllCustomers() throws SQLException
     {
         List<Customer> list = new ArrayList<>();
         Connection conn = DBConfig.getConnection();
@@ -36,6 +36,6 @@ public class CustomerService {
             list.add(new Customer(rs.getInt("id"),
                     rs.getString("name"), rs.getString("phone")));
         }
-        return (ArrayList<Customer>) list;
+        return list;
     }
 }

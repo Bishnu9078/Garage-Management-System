@@ -1,10 +1,12 @@
 package service;
 
 import config.DBConfig;
+import entity.Customer;
 import entity.Invoice;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InvoiceService {
 
@@ -20,5 +22,22 @@ public class InvoiceService {
         ps.executeUpdate();
         ps.close();
         conn.close();
+    }
+
+    public List<Invoice> getAllInvoices() throws SQLException
+    {
+        List<Invoice> list = new ArrayList<>();
+        Connection conn = DBConfig.getConnection();
+        Statement st = conn.createStatement();
+        st.execute("SELECT * FROM customer");
+        ResultSet rs = st.executeQuery("SELECT * FROM invoices");
+
+        while (rs.next()) {
+            list.add(new Invoice(rs.getInt("id"),
+                    rs.getInt("customer_id"),
+                    rs.getInt("vehicle_id"),
+                    rs.getInt("service_id")));
+        }
+        return list;
     }
 }
